@@ -62,9 +62,9 @@ docker-compose-process () {
   sed -i "s/#ACESS_URI#/$CONCOURSE_ACESS_URI/g" $PROC_DIR/docker-compose.yml
   sed -i "s/#USER_LIST#/$USER_LIST/g" $PROC_DIR/docker-compose.yml
   sed -i "s/#TEAM_LIST#/$TEAM_LIST/g" $PROC_DIR/docker-compose.yml
-  sed -i "s/#CONCOURSE_TLS_CERT#/keys\/web\/concourse-crt/g" $PROC_DIR/docker-compose.yml
-  sed -i "s/#CONCOURSE_TLS_KEY#/keys\/web\/concourse-key/g" $PROC_DIR/docker-compose.yml
-  sed -i "s/#CONCOURSE_MAIN_TEAM_CONFIG#/keys\/web\/web_role_permission/g" $PROC_DIR/docker-compose.yml
+  sed -i "s/#CONCOURSE_TLS_CERT#/\/concourse-keys\/concourse-crt/g" $PROC_DIR/docker-compose.yml
+  sed -i "s/#CONCOURSE_TLS_KEY#\/concourse-keys\/concourse-key/g" $PROC_DIR/docker-compose.yml
+  sed -i "s/#CONCOURSE_MAIN_TEAM_CONFIG#/\/concourse-keys/web_role_permission/g" $PROC_DIR/docker-compose.yml
 }
 
 
