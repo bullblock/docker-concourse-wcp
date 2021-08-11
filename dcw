@@ -65,6 +65,7 @@ docker-compose-process () {
   sed -i "s/#CONCOURSE_TLS_CERT#/\/concourse-keys\/concourse-crt/g" $PROC_DIR/docker-compose.yml
   sed -i "s/#CONCOURSE_TLS_KEY#/\/concourse-keys\/concourse-key/g" $PROC_DIR/docker-compose.yml
   sed -i "s/#CONCOURSE_MAIN_TEAM_CONFIG#/\/concourse-keys\/web_role_permission/g" $PROC_DIR/docker-compose.yml
+  sed -i "s/#CONCOURSE_CONTAINER_DNS#/$CONCOURSE_CONTAINER_DNS/g" $PROC_DIR/docker-compose.yml
 }
 
 
