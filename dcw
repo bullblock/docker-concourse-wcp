@@ -22,8 +22,10 @@ cert-key-generation () {
 git-clone-concourse-docker () {
   if [ -d $WORK_DIR/concourse-docker ]; then
      cd $WORK_DIR/concourse-docker && git pull
+     sleep 30
   else
      cd $WORK_DIR && git clone $CONCOURSE_DOCKER_GIT
+     sleep 30
   fi
 }
 
