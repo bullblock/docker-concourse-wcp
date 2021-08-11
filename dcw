@@ -70,6 +70,7 @@ run-concourse () {
   PROC_DIR=$WORK_DIR/concourse-docker
   cd $PROC_DIR
   docker-compose up -d
+  docker container ps
   ss -tupnl
 }
 
