@@ -55,19 +55,20 @@ docker-compose-process () {
   USER_LIST=$(echo $CONCOURSE_OWNER:$CONCOURSE_OWNER_PASSWORD,$CONCOURSE_MEMBER:$CONCOURSE_MEMBER_PASSWORD,$CONCOURSE_OPERATOR:$CONCOURSE_OPERATOR_PASSWORD,$CONCOURSE_VIEWER:$CONCOURSE_VIEWER_PASSWORD)
   TEAM_LIST=$(echo $CONCOURSE_OWNER,$CONCOURSE_MEMBER,$CONCOURSE_OPERATOR,$CONCOURSE_VIEWER)
   sed -i "s/#NETWORK_PORTS#/$CONCOURSE_PORT/g" $PROC_DIR/docker-compose.yml
-  sed -i "s/#CLUSTER_NAME#/$CONCOURSE_CONCOURSE_CLUSTER_NAME/g" $PROC_DIR/docker-compose.yml
+  sed -i "s/#CLUSTER_NAME#/$CONCOURSE_CLUSTER_NAME/g" $PROC_DIR/docker-compose.yml
   sed -i "s/#ACESS_URI#/$CONCOURSE_ACESS_URI/g" $PROC_DIR/docker-compose.yml
   sed -i "s/#USER_LIST#/$USER_LIST/g" $PROC_DIR/docker-compose.yml
   sed -i "s/#TEAM_LIST#/$TEAM_LIST/g" $PROC_DIR/docker-compose.yml
-  sed -i "s/#CONCOURSE_TLS_CERT#/$PROC_DIR\/keys\/web\/concourse-crt/g" $PROC_DIR/docker-compose.yml
-  sed -i "s/#CONCOURSE_TLS_KEY#/$PROC_DIR\/keys\/web\/concourse-key/g" $PROC_DIR/docker-compose.yml
-  sed -i "s/#CONCOURSE_MAIN_TEAM_CONFIG#/$PROC_DIR\/keys\/web\/web_role_permission/g" $PROC_DIR/docker-compose.yml
+  sed -i "s/#CONCOURSE_TLS_CERT#/keys\/web\/concourse-crt/g" $PROC_DIR/docker-compose.yml
+  sed -i "s/#CONCOURSE_TLS_KEY#/keys\/web\/concourse-key/g" $PROC_DIR/docker-compose.yml
+  sed -i "s/#CONCOURSE_MAIN_TEAM_CONFIG#/keys\/web\/web_role_permission/g" $PROC_DIR/docker-compose.yml
 }
 
 
 # run docker compose and trigger the concourse process...
 run-concourse () {
   PROC_DIR=$WORK_DIR/concourse-docker
+  cd $PROC_DIR
   docker-compose up -d
   ss -tupnl
 }
