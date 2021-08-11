@@ -1,0 +1,58 @@
+#!/bin/bash
+
+if [ ! -e etc/config.conf ]; then
+   echo "you are not at the right dirtory yet..."
+   exit 1
+fi
+source etc/config.conf 
+WORK_DIR=$PWD/workdir 
+if [ ! -d $WORK_DIR ]; then mkdir -p $WORK_DIR ; fi
+
+# define the self-signed cert generarion function
+cert-key-generation () {
+  if [[ -e $WORK_DIR/concourse-key && -e $WORK_DIR/concourse-crt ]]; then
+     echo "Self-signed key-pair is generated..."
+     return 0
+  fi
+  openssl req -x509 -newkey rsa:4096 -keyout "$WORK_DIR/concourse-key" -out "$WORK_DIR/concourse-crt" -days 3650 -nodes -subj "/CN=$CONCOURSE_URI"
+  echo "Self-signed key-pair is generated..."
+}
+
+# define the git clone function
+git-clone-concourse-docker () {
+  if [ -d $WORK_DIR/concourse-docker ]; then
+     cd $WORK_DIR/concourse-docker && git pull
+  else
+     cd $WORK_DIR && git clone $CONCOURSE_DOCKER_GIT
+  fi
+}
+
+# define concourse key-set generation function
+concourse-docker-key-generation () {
+  if [ ! -e $WORK_DIR/concourse-docker/keys/generate ]; then
+     echo "please git clone the concourse-docker repository first"
+     exit 1
+  else
+     cd $WORK_DIR/concourse-docker/keys/ && ./generate
+     echo "concourse-docker key-set generation is done..."
+  fi
+}
+
+# insert the self-signed cert and key into key-set
+insert-cert-key () {
+  copy $WORK_DIR/concourse-key $WORK_DIR/concourse-docker/keys/web/
+  copy $WORK_DIR/concourse-crt $WORK_DIR/concourse-docker/keys/web/
+}
+
+# parser docker-compose file
+docker-compose-process () {
+  PROC_DIR=$WORK_DIR/concourse-docker
+
+
+}
+
+
+cert-key-generation
+git-clone-concourse-docker
+concourse-docker-key-generation
+

@@ -1,0 +1,10 @@
+#!/bin/bash
+source config.conf
+echo $CONCOURSE_URI
+
+show-function ( ) {
+  CONCOURSE_URI=another
+  echo "$CONCOURSE_URI inside function"
+}
+
+show-function 
