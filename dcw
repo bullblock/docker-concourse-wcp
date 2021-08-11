@@ -46,6 +46,9 @@ cert-key-generation () {
      sed -i "s/#CONCOURSE_OPERATOR#/$CONCOURSE_OPERATOR/g" $WORK_DIR/concourse-docker/keys/web/web_role_permission 
      sed -i "s/#CONCOURSE_VIEWER#/$CONCOURSE_VIEWER/g" $WORK_DIR/concourse-docker/keys/web/web_role_permission 
   fi
+  sudo chown root:root $WORK_DIR/concourse-docker/keys/web/concourse-key
+  sudo chown root:root $WORK_DIR/concourse-docker/keys/web/concourse-crt
+  sudo chown root:root $WORK_DIR/concourse-docker/keys/web/web_role_permission
   echo "Self-signed key-pair is generated..."
 }
 
