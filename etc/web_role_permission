@@ -1,0 +1,13 @@
+roles:
+- name: owner
+  local:
+    users: ["#CONCOURSE_OWNER#"]
+- name: member
+  local:
+    users: ["#CONCOURSE_MEMBER#"]
+- name: pipeline-operator
+  local:
+    users: ["#CONCOURSE_OPERATOR#"]
+- name: viewer
+  local:
+    users: ["#CONCOURSE_VIEWER#"]
