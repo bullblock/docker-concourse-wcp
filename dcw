@@ -1,5 +1,6 @@
 #!/bin/bash
 
+CURRENT_DIR=$PWD
 if [ ! -e etc/config.conf ]; then
    echo "you are not at the right dirtory yet..."
    exit 1
@@ -36,8 +37,8 @@ cert-key-generation () {
      echo "Self-signed key-pair is generated..."
      return 0
   fi
-  openssl req -x509 -newkey rsa:4096 -keyout "$WORK_DIR/concourse-docker/keys/web/concourse-key" -out "$WORK_DIR/concourse-docker/keys/web/concourse-crt" -days 3650 -nodes -subj "/CN=$CONCOURSE_URI"
-  pwd
+  openssl req -x509 -newkey rsa:4096 -keyout "$WORK_DIR/concourse-docker/keys/web/concourse-key" -out "$WORK_DIR/concourse-docker/keys/web/concourse-crt" -days 3650 -nodes -subj "/CN=$CONCOURSE_ACESS_URI"
+  cd $CURRENT_DIR
   if [ -e etc/web_role_permission ]; then
      cp etc/web_role_permission $WORK_DIR/concourse-docker/keys/web/web_role_permission
      sed -i "s/#CONCOURSE_OWNER#/$CONCOURSE_OWNER/g" $WORK_DIR/concourse-docker/keys/web/web_role_permission 
@@ -58,6 +59,9 @@ docker-compose-process () {
   sed -i "s/#ACESS_URI#/$CONCOURSE_ACESS_URI/g" $PROC_DIR/docker-compose.yml
   sed -i "s/#USER_LIST#/$USER_LIST/g" $PROC_DIR/docker-compose.yml
   sed -i "s/#TEAM_LIST#/$TEAM_LIST/g" $PROC_DIR/docker-compose.yml
+  sed -i "s/#CONCOURSE_TLS_CERT#/$PROC_DIR\/keys\/web\/concourse-crt/g" $PROC_DIR/docker-compose.yml
+  sed -i "s/#CONCOURSE_TLS_KEY#/$PROC_DIR\/keys\/web\/concourse-key/g" $PROC_DIR/docker-compose.yml
+  sed -i "s/#CONCOURSE_MAIN_TEAM_CONFIG#/$PROC_DIR\/keys\/web\/web_role_permission/g" $PROC_DIR/docker-compose.yml
 }
 
 
