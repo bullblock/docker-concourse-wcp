@@ -1,5 +1,6 @@
 # define the git clone function
 git-clone-concourse-docker () {
+  cd $CURRENT_DIR
   if [ -d $WORK_DIR/concourse-docker ]; then
      cd $WORK_DIR/concourse-docker && git pull
      sleep 30
@@ -11,6 +12,7 @@ git-clone-concourse-docker () {
 
 # define concourse key-set generation function
 concourse-docker-key-generation () {
+  cd $CURRENT_DIR
   if [ ! -e $WORK_DIR/concourse-docker/keys/generate ]; then
      echo "please git clone the concourse-docker repository first"
      exit 1
@@ -22,12 +24,12 @@ concourse-docker-key-generation () {
 
 # define the self-signed cert generarion function
 cert-key-generation () {
+  cd $CURRENT_DIR
   if [[ -e $WORK_DIR/concourse-docker/keys/web/concourse-key && -e $WORK_DIRi/concourse-docker/keys/web/concourse-crt ]]; then
      echo "Self-signed key-pair is generated..."
      return 0
   fi
   openssl req -x509 -newkey rsa:4096 -keyout "$WORK_DIR/concourse-docker/keys/web/concourse-key" -out "$WORK_DIR/concourse-docker/keys/web/concourse-crt" -days 3650 -nodes -subj "/CN=$CONCOURSE_ACESS_URI"
-  cd $CURRENT_DIR
   if [ -e etc/web_role_permission ]; then
      cp etc/web_role_permission $WORK_DIR/concourse-docker/keys/web/web_role_permission
      sed -i "s/#CONCOURSE_OWNER#/$CONCOURSE_OWNER/g" $WORK_DIR/concourse-docker/keys/web/web_role_permission
@@ -43,6 +45,7 @@ cert-key-generation () {
 
 # parser docker-compose file
 docker-compose-process () {
+  cd $CURRENT_DIR
   PROC_DIR=$WORK_DIR/concourse-docker
   USER_LIST=$(echo $CONCOURSE_OWNER:$CONCOURSE_OWNER_PASSWORD,$CONCOURSE_MEMBER:$CONCOURSE_MEMBER_PASSWORD,$CONCOURSE_OPERATOR:$CONCOURSE_OPERATOR_PASSWORD,$CONCOURSE_VIEWER:$CONCOURSE_VIEWER_PASSWORD)
   TEAM_LIST=$(echo $CONCOURSE_OWNER,$CONCOURSE_MEMBER,$CONCOURSE_OPERATOR,$CONCOURSE_VIEWER)
@@ -60,6 +63,7 @@ docker-compose-process () {
 
 # run docker compose and trigger the concourse process...
 run-concourse () {
+  cd $CURRENT_DIR
   PROC_DIR=$WORK_DIR/concourse-docker
   cd $PROC_DIR
   docker-compose up -d

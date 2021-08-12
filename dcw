@@ -20,3 +20,6 @@ concourse-docker-key-generation
 cert-key-generation
 docker-compose-process
 run-concourse
+pipeline-repo-prepare
+cluster-repo-prepare
+pipeline-build
