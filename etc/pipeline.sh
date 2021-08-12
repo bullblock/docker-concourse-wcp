@@ -1,15 +1,13 @@
 # prepare pipeline repo
 pipeline-repo-prepare () {
   cd $CURRENT_DIR
-  if [ ! -d $WORK_DIR/vmware-tanzu-wcp-operation-pipeline ] then;
-     cd $WORK_DIR
-     git clone $PIPELINE_REPOSITORY
-     sleep 30
-     sed -i "s/#WCP_API_SERVER_URI#/$WCP_API_SERVER_URI/g" $WORK_DIR/vmware-tanzu-wcp-operation-pipeline/vars.yaml
-     sed -i "s/#NAMESPACE#/$NAMESPACE/g" $WORK_DIR/vmware-tanzu-wcp-operation-pipeline/vars.yaml
-     sed -i "s/#NS_USERNAME#/$NS_USERNAME/g" $WORK_DIR/vmware-tanzu-wcp-operation-pipeline/vars.yaml
-     sed -i "s/#NS_USERNAME_PASSWORD#/$NS_USERNAME_PASSWORD/g" $WORK_DIR/vmware-tanzu-wcp-operation-pipeline/vars.yaml
-  fi
+  cd $WORK_DIR
+  git clone $PIPELINE_REPOSITORY
+  sleep 30
+  sed -i "s/#WCP_API_SERVER_URI#/$WCP_API_SERVER_URI/g" $WORK_DIR/vmware-tanzu-wcp-operation-pipeline/vars.yaml
+  sed -i "s/#NAMESPACE#/$NAMESPACE/g" $WORK_DIR/vmware-tanzu-wcp-operation-pipeline/vars.yaml
+  sed -i "s/#NS_USERNAME#/$NS_USERNAME/g" $WORK_DIR/vmware-tanzu-wcp-operation-pipeline/vars.yaml
+  sed -i "s/#NS_USERNAME_PASSWORD#/$NS_USERNAME_PASSWORD/g" $WORK_DIR/vmware-tanzu-wcp-operation-pipeline/vars.yaml
   echo "pipeline-prepare is ready..." 
 }
 
