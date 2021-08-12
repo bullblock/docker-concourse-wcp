@@ -8,7 +8,7 @@ if [ ! -d $WORK_DIR ]; then
 fi
 
 if [ ! -e etc/config.conf ] || [ ! -e etc/common.sh ] || [ ! -e etc/pipeline.sh ] then
-   echo "some files missing under /etc..."
+   echo "some files missing under etc..."
    ecit 1
 fi
 
