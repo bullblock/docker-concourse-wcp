@@ -10,7 +10,7 @@ pipeline-repo-prepare () {
      sed -i "s/#NS_USERNAME#/$NS_USERNAME/g" $WORK_DIR/vmware-tanzu-wcp-operation-pipeline/vars.yaml
      sed -i "s/#NS_USERNAME_PASSWORD#/$NS_USERNAME_PASSWORD/g" $WORK_DIR/vmware-tanzu-wcp-operation-pipeline/vars.yaml
   fi
- echo "pipeline-prepare is ready..." 
+  echo "pipeline-prepare is ready..." 
 }
 
 # prepare cluster repo
