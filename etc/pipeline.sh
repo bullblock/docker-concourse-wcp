@@ -17,6 +17,7 @@ pipeline-repo-prepare () {
 cluster-repo-prepare () {
   cd $WORK_DIR
   git clone $CLUSTER_REPOSITORY
+  sleep 30
 }
 
 # pipeline build
