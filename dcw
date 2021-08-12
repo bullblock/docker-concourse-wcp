@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 source etc/config.conf
 
 CURRENT_DIR=$PWD
