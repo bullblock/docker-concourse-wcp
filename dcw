@@ -3,25 +3,25 @@
 CURRENT_DIR=$PWD
 WORK_DIR=$PWD/workdir
 if [ ! -d $WORK_DIR ]; then mkdir -p $WORK_DIR ; fi
+
 if [ ! -e etc/config.conf ]; then
    echo "you are not at the right dirtory yet..."
    exit 1
-else
-   source etc/config.conf
 fi
+
 if [ ! -e etc/common.sh ]; then
    echo "the etc\/common.sh file is missing..."
    exit 1
-else
-   source etc/common.sh
 fi
+
 if [ ! -e etc/pipeline.sh ]; then
    echo " the etc\/pipeline.sh file is missing..."
    exit 1
-else
-   source etc/pipeline.sh
 fi
 
+source etc/config.conf
+source etc/common.sh
+source etc/pipeline.sh
 
 git-clone-concourse-docker
 concourse-docker-key-generation
