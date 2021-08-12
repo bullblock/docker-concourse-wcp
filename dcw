@@ -2,7 +2,10 @@
 
 CURRENT_DIR=$PWD
 WORK_DIR=$PWD/workdir
-if [ ! -d $WORK_DIR ]; then mkdir -p $WORK_DIR ; fi
+
+if [ ! -d $WORK_DIR ]; then
+   mkdir -p $WORK_DIR
+fi
 
 if [ ! -e etc/config.conf ]; then
    echo "you are not at the right dirtory yet..."
