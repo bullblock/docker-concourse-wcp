@@ -7,19 +7,9 @@ if [ ! -d $WORK_DIR ]; then
    mkdir -p $WORK_DIR
 fi
 
-if [ ! -e etc/config.conf ]; then
-   echo "you are not at the right dirtory yet..."
-   exit 1
-fi
-
-if [ ! -e etc/common.sh ]; then
-   echo "the etc\/common.sh file is missing..."
-   exit 1
-fi
-
-if [ ! -e etc/pipeline.sh ]; then
-   echo " the etc\/pipeline.sh file is missing..."
-   exit 1
+if [ ! -e etc/config.conf ] || [ ! -e etc/common.sh ] || [ ! -e etc/pipeline.sh ] then
+   echo "some files missing under \/etc..."
+   ecit 1
 fi
 
 source etc/config.conf
